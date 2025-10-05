@@ -1,24 +1,23 @@
-import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'; // Importar Image para mostrar el logo
 import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export default function WelcomeScreen() {
   const onNext = async () => {
     // marcamos que ya vio el onboarding
     await AsyncStorage.setItem(STORAGE_KEYS.ONBOARDED, 'true');
-    // lleva a login (cambia a la ruta que uses, por ejemplo /login)
-    router.replace('../');
+    // lleva a login
+    router.replace('/login');
   };
 
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
-        {/* Icono de casita / inventario */}
+        {/* Logo de la aplicación */}
         <View style={styles.iconWrap}>
-          <Ionicons name="home" size={96} />
+          <Image source={require('../assets/images/DFind.png')} style={styles.logo} />
         </View>
 
         <Text style={styles.title}>¡Bienvenido a DFind!</Text>
@@ -50,6 +49,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#F5F5F5',
+  },
+  logo: {
+    width: 96,
+    height: 96,
+    resizeMode: 'contain',
   },
   title: { fontSize: 28, fontWeight: '700', textAlign: 'center', marginTop: 24 },
   subtitle: { fontSize: 16, lineHeight: 22, textAlign: 'center', color: '#555', marginTop: 8 },

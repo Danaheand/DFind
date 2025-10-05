@@ -1,33 +1,31 @@
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { STORAGE_KEYS } from '../constants/storageKeys';
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const onLogin = async () => {
-    // Simulación de login, reemplaza con tu lógica real
-    if (username.trim() && password.trim()) {
-      await AsyncStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'demo-token');
-      router.replace('/home'); // Restauro la navegación a la pantalla principal
-    } else {
-      setError('Por favor ingresa usuario y contraseña.');
-    }
+  const onRegister = () => {
+    // Aquí puedes agregar la lógica para registrar al usuario
+    console.log('Usuario registrado:', { username, email, password });
+    router.replace('/login'); // Regresar a la pantalla de inicio de sesión después del registro
+  };
+
+  const onBack = () => {
+    router.replace('/login'); // Navegar de regreso a la pantalla de inicio de sesión
   };
 
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
         <View style={styles.iconWrap}>
-          <Ionicons name="person" size={72} color="#0a7ea4" />
+          <Ionicons name="person-add" size={72} color="#0a7ea4" />
         </View>
-        <Text style={styles.title}>Iniciar sesión</Text>
-        <Text style={styles.subtitle}>Accede a tu inventario de hogar</Text>
+        <Text style={styles.title}>Crear cuenta</Text>
+        <Text style={styles.subtitle}>Regístrate para comenzar a usar DFind</Text>
         <View style={styles.form}>
           <TextInput
             style={styles.input}
@@ -39,23 +37,28 @@ export default function LoginScreen() {
           />
           <TextInput
             style={styles.input}
+            placeholder="Correo electrónico"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
+            placeholderTextColor="#687076"
+          />
+          <TextInput
+            style={styles.input}
             placeholder="Contraseña"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
             placeholderTextColor="#687076"
           />
-          {error ? <Text style={styles.error}>{error}</Text> : null}
         </View>
-        <Text style={styles.registerLink} onPress={() => router.push('/register')}>
-    ¿No tienes cuenta? <Text style={styles.registerLinkHighlight}>Regístrate</Text>
-  </Text>
         <View style={styles.bottomRow}>
-          <Pressable onPress={() => router.replace('/welcome')} style={({ pressed }) => [styles.backButton, pressed && { opacity: 0.9 }] }>
-            <Text style={styles.backButtonText}>Atrás</Text>
+          <Pressable onPress={onBack} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
+            <Text style={styles.buttonText}>Atrás</Text>
           </Pressable>
-          <Pressable onPress={() => router.replace('/home')} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
-            <Text style={styles.buttonText}>Entrar</Text>
+          <Pressable onPress={onRegister} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
+            <Text style={styles.buttonText}>Registrarse</Text>
           </Pressable>
         </View>
       </View>
@@ -89,7 +92,6 @@ const styles = StyleSheet.create({
     borderColor: '#E6F4FE',
     color: '#11181C',
   },
-  error: { color: '#E53935', textAlign: 'center', marginBottom: 8 },
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -105,29 +107,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFF',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  registerLink: {
-    marginBottom: 20, // Subo el enlace para que no esté tan abajo
-    textAlign: 'center',
-    color: '#687076',
-    fontSize: 14,
-  },
-  registerLinkHighlight: {
-    color: '#0a7ea4',
-    fontWeight: '600',
-  },
-  backButton: {
-    flex: 1,
-    marginHorizontal: 5,
-    backgroundColor: '#E6F4FE', // azul claro para confianza
-    paddingVertical: 16,
-    borderRadius: 14,
-    alignItems: 'center',
-  },
-  backButtonText: {
-    color: '#0a7ea4',
     fontSize: 18,
     fontWeight: '600',
   },
