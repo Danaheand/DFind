@@ -15,7 +15,7 @@ export default function Index() {
         return;
       }
       const token = await AsyncStorage.getItem(AUTH_TOKEN_KEY);
-      router.replace(token ? "/" : "/login"); // 👈 ajusta la ruta principal
+      router.replace(token ? "/home" : "/login"); // 👈 ajusta la ruta principal
     })();
   }, []);
 

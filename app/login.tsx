@@ -11,12 +11,11 @@ export default function LoginScreen() {
   const [error, setError] = useState('');
 
   const onLogin = async () => {
-    // Simulación de login, reemplaza con tu lógica real
-    if (username.trim() && password.trim()) {
+    if (username === 'admin' && password === '123') {
       await AsyncStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'demo-token');
-      router.replace('/home'); // Restauro la navegación a la pantalla principal
+      router.push('/inventory'); // Navegar a la pantalla de inventario
     } else {
-      setError('Por favor ingresa usuario y contraseña.');
+      setError('Credenciales incorrectas.');
     }
   };
 
@@ -54,7 +53,7 @@ export default function LoginScreen() {
           <Pressable onPress={() => router.replace('/welcome')} style={({ pressed }) => [styles.backButton, pressed && { opacity: 0.9 }] }>
             <Text style={styles.backButtonText}>Atrás</Text>
           </Pressable>
-          <Pressable onPress={() => router.replace('/home')} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
+          <Pressable onPress={onLogin} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
             <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
         </View>
