@@ -3,14 +3,17 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import FooterNavigation from '@/components/footer-navigation';
+
 export default function RegisterScreen() {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const onRegister = () => {
     // Aquí puedes agregar la lógica para registrar al usuario
-    console.log('Usuario registrado:', { username, email, password });
+    console.log('Usuario registrado:', { name, email, username, password });
     router.replace('/login'); // Regresar a la pantalla de inicio de sesión después del registro
   };
 
@@ -29,10 +32,9 @@ export default function RegisterScreen() {
         <View style={styles.form}>
           <TextInput
             style={styles.input}
-            placeholder="Usuario"
-            autoCapitalize="none"
-            value={username}
-            onChangeText={setUsername}
+            placeholder="Nombres"
+            value={name}
+            onChangeText={setName}
             placeholderTextColor="#687076"
           />
           <TextInput
@@ -42,6 +44,14 @@ export default function RegisterScreen() {
             autoCapitalize="none"
             value={email}
             onChangeText={setEmail}
+            placeholderTextColor="#687076"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Usuario"
+            autoCapitalize="none"
+            value={username}
+            onChangeText={setUsername}
             placeholderTextColor="#687076"
           />
           <TextInput
@@ -62,6 +72,7 @@ export default function RegisterScreen() {
           </Pressable>
         </View>
       </View>
+      <FooterNavigation />
     </SafeAreaView>
   );
 }

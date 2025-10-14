@@ -26,13 +26,6 @@ export default function RoomDetailsScreen() {
         <Ionicons name="cube" size={64} color="#0a7ea4" style={styles.icon} />
         <Text style={styles.placeholder}>Aquí puedes añadir y gestionar objetos.</Text>
       </View>
-
-      <View style={styles.footer}>
-        <Pressable style={styles.addButton}>
-          <Ionicons name="add" size={24} color="#FFF" />
-          <Text style={styles.addButtonText}>Añadir Objeto</Text>
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }
@@ -62,25 +55,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#687076',
     textAlign: 'center',
-  },
-  footer: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#E6E6E6',
-    alignItems: 'center',
-  },
-  addButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFA726',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-  },
-  addButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 8,
   },
 });

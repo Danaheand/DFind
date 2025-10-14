@@ -1,3 +1,4 @@
+import FooterNavigation from '@/components/footer-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
@@ -110,6 +111,7 @@ export default function InventoryScreen() {
           </View>
         </View>
       </Modal>
+      <FooterNavigation />
     </SafeAreaView>
   );
 }

@@ -1,3 +1,4 @@
+import FooterNavigation from '@/components/footer-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
@@ -54,6 +55,8 @@ export default function ProfileScreen() {
       <Pressable style={styles.logoutButton}>
         <Text style={styles.logoutText}>Cerrar Sesión</Text>
       </Pressable>
+
+      <FooterNavigation />
     </SafeAreaView>
   );
 }

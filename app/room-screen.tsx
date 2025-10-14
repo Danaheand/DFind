@@ -1,3 +1,4 @@
+import FooterNavigation from '@/components/footer-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import React from 'react';
@@ -56,6 +57,7 @@ export default function RoomScreen() {
       <Pressable style={styles.addButton}>
         <Text style={styles.addButtonText}>+ Añadir Habitación</Text>
       </Pressable>
+      <FooterNavigation />
     </SafeAreaView>
   );
 }

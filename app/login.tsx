@@ -1,17 +1,21 @@
+import FooterNavigation from '@/components/footer-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
 import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const progress = (identifier ? 0.5 : 0) + (password ? 0.5 : 0);
+
   const onLogin = async () => {
-    if (username === 'admin' && password === '123') {
+    if (identifier === 'admin' && password === '123') {
       await AsyncStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'demo-token');
       router.push('/inventory'); // Navegar a la pantalla de inventario
     } else {
@@ -23,17 +27,16 @@ export default function LoginScreen() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
         <View style={styles.iconWrap}>
-          <Ionicons name="person" size={72} color="#0a7ea4" />
+          <Ionicons name="log-in" size={72} color="#0a7ea4" />
         </View>
         <Text style={styles.title}>Iniciar sesión</Text>
-        <Text style={styles.subtitle}>Accede a tu inventario de hogar</Text>
         <View style={styles.form}>
           <TextInput
             style={styles.input}
-            placeholder="Usuario"
+            placeholder="Usuario o Correo"
             autoCapitalize="none"
-            value={username}
-            onChangeText={setUsername}
+            value={identifier}
+            onChangeText={setIdentifier}
             placeholderTextColor="#687076"
           />
           <TextInput
@@ -46,6 +49,7 @@ export default function LoginScreen() {
           />
           {error ? <Text style={styles.error}>{error}</Text> : null}
         </View>
+        <ProgressBar progress={progress} color="#0a7ea4" style={styles.progressBar} />
         <Text style={styles.registerLink} onPress={() => router.push('/register')}>
     ¿No tienes cuenta? <Text style={styles.registerLinkHighlight}>Regístrate</Text>
   </Text>
@@ -58,6 +62,7 @@ export default function LoginScreen() {
           </Pressable>
         </View>
       </View>
+      <FooterNavigation />
     </SafeAreaView>
   );
 }
@@ -76,7 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6F4FE', // azul claro para confianza
   },
   title: { fontSize: 24, fontWeight: '700', textAlign: 'center', marginTop: 16, color: '#0a7ea4' },
-  subtitle: { fontSize: 16, lineHeight: 22, textAlign: 'center', color: '#555', marginTop: 8 },
   form: { marginTop: 24 },
   input: {
     backgroundColor: '#F5F5F5',
@@ -89,6 +93,11 @@ const styles = StyleSheet.create({
     color: '#11181C',
   },
   error: { color: '#E53935', textAlign: 'center', marginBottom: 8 },
+  progressBar: {
+    height: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

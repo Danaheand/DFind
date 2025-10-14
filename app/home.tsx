@@ -1,18 +1,24 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
 } from 'react-native';
 
+// Define the type for navigation routes
+interface RootStackParamList {
+  profile: undefined;
+  // Add other routes here if needed
+}
+
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -85,7 +91,7 @@ export default function HomeScreen() {
           <Text style={styles.footerText}>Inventario</Text>
         </Pressable>
         <Pressable style={styles.footerButton}>
-          <Ionicons name="notifications" size={24} color="#FFF" />
+          <Ionicons name="notifications" size={24} color="#FFF" style={styles.burntIcon} />
           <Text style={styles.footerText}>Alertas</Text>
         </Pressable>
         <Pressable
@@ -172,4 +178,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addCategoryButtonText: { color: '#FFF', fontSize: 16, fontWeight: '600' },
+  burntIcon: {
+    opacity: 0.5,
+    filter: 'grayscale(100%)',
+  },
 });
