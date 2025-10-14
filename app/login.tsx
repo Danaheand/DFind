@@ -4,15 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
 import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export default function LoginScreen() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const progress = (identifier ? 0.5 : 0) + (password ? 0.5 : 0);
 
   const onLogin = async () => {
     if (identifier === 'admin' && password === '123') {
@@ -49,14 +46,10 @@ export default function LoginScreen() {
           />
           {error ? <Text style={styles.error}>{error}</Text> : null}
         </View>
-        <ProgressBar progress={progress} color="#0a7ea4" style={styles.progressBar} />
         <Text style={styles.registerLink} onPress={() => router.push('/register')}>
-    ¿No tienes cuenta? <Text style={styles.registerLinkHighlight}>Regístrate</Text>
-  </Text>
+          ¿No tienes cuenta? <Text style={styles.registerLinkHighlight}>Regístrate</Text>
+        </Text>
         <View style={styles.bottomRow}>
-          <Pressable onPress={() => router.replace('/welcome')} style={({ pressed }) => [styles.backButton, pressed && { opacity: 0.9 }] }>
-            <Text style={styles.backButtonText}>Atrás</Text>
-          </Pressable>
           <Pressable onPress={onLogin} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
             <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
@@ -93,21 +86,15 @@ const styles = StyleSheet.create({
     color: '#11181C',
   },
   error: { color: '#E53935', textAlign: 'center', marginBottom: 8 },
-  progressBar: {
-    height: 10,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
   bottomRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingBottom: 10,
   },
   button: {
-    flex: 1,
-    marginHorizontal: 5,
     backgroundColor: '#FFA726', // naranja para energía
     paddingVertical: 16,
+    paddingHorizontal: 32,
     borderRadius: 14,
     alignItems: 'center',
   },
@@ -124,19 +111,6 @@ const styles = StyleSheet.create({
   },
   registerLinkHighlight: {
     color: '#0a7ea4',
-    fontWeight: '600',
-  },
-  backButton: {
-    flex: 1,
-    marginHorizontal: 5,
-    backgroundColor: '#E6F4FE', // azul claro para confianza
-    paddingVertical: 16,
-    borderRadius: 14,
-    alignItems: 'center',
-  },
-  backButtonText: {
-    color: '#0a7ea4',
-    fontSize: 18,
     fontWeight: '600',
   },
 });

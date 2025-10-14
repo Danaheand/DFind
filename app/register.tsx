@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
 
 import FooterNavigation from '@/components/footer-navigation';
 
@@ -10,6 +11,8 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const progress = (name ? 0.25 : 0) + (email ? 0.25 : 0) + (username ? 0.25 : 0) + (password ? 0.25 : 0);
 
   const onRegister = () => {
     // Aquí puedes agregar la lógica para registrar al usuario
@@ -63,6 +66,7 @@ export default function RegisterScreen() {
             placeholderTextColor="#687076"
           />
         </View>
+        <ProgressBar progress={progress} color="#0a7ea4" style={styles.progressBar} />
         <View style={styles.bottomRow}>
           <Pressable onPress={onBack} style={({ pressed }) => [styles.button, pressed && { opacity: 0.9 }] }>
             <Text style={styles.buttonText}>Atrás</Text>
@@ -102,6 +106,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E6F4FE',
     color: '#11181C',
+  },
+  progressBar: {
+    height: 10,
+    borderRadius: 5,
+    marginBottom: 20,
   },
   bottomRow: {
     flexDirection: 'row',
