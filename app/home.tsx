@@ -2,18 +2,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-    Pressable,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 
 // Define the type for navigation routes
 interface RootStackParamList {
   profile: undefined;
+  inventory: undefined;
+  alerts: undefined;
+  home: undefined; // Added 'home' route
   // Add other routes here if needed
 }
 
@@ -82,23 +85,23 @@ export default function HomeScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable style={styles.footerButton}>
-          <Ionicons name="home" size={24} color="#FFF" />
+        <Pressable style={styles.footerButton} onPress={() => navigation.navigate('home')}>
+          <Ionicons name="home" size={28} color="#FFF" />
           <Text style={styles.footerText}>Inicio</Text>
         </Pressable>
-        <Pressable style={styles.footerButton}>
-          <Ionicons name="list" size={24} color="#FFF" />
+        <Pressable style={styles.footerButton} onPress={() => navigation.navigate('inventory')}>
+          <Ionicons name="list" size={28} color="#FFF" />
           <Text style={styles.footerText}>Inventario</Text>
         </Pressable>
-        <Pressable style={styles.footerButton}>
-          <Ionicons name="notifications" size={24} color="#FFF" style={styles.burntIcon} />
+        <Pressable style={styles.footerButton} onPress={() => navigation.navigate('alerts')}>
+          <Ionicons name="notifications" size={28} color="#FFF" style={styles.burntIcon} />
           <Text style={styles.footerText}>Alertas</Text>
         </Pressable>
         <Pressable
           style={styles.footerButton}
           onPress={() => navigation.navigate('profile')}
         >
-          <Ionicons name="person" size={40} color="#FFF" />
+          <Ionicons name="person" size={28} color="#FFF" />
           <Text style={styles.footerText}>Perfil</Text>
         </Pressable>
       </View>
