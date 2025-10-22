@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  useColorScheme,
   View,
 } from 'react-native';
 
@@ -22,64 +23,69 @@ interface RootStackParamList {
 
 export default function HomeScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const colorScheme = useColorScheme();
+
+  const backgroundColor = colorScheme === 'dark' ? '#4b6154' : '#c0dfc2';
+  const headerColor = colorScheme === 'dark' ? '#64ac8f' : '#94d6ba';
+  const textColor = colorScheme === 'dark' ? '#e7f5dc' : '#4b6154';
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <Text style={styles.greeting}>Hola, Carlos</Text>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor }]}>
+      <View style={[styles.header, { backgroundColor: headerColor }]}>
+        <Text style={[styles.greeting, { color: textColor }]}>Hola, Carlos</Text>
         <Pressable
           style={styles.profileButton}
           onPress={() => navigation.navigate('profile')}
         >
-          <Ionicons name="person-circle" size={40} color="#FFF" />
+          <Ionicons name="person-circle" size={40} color={textColor} />
         </Pressable>
       </View>
 
       <View style={styles.searchContainer}>
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput, { backgroundColor: headerColor, color: textColor }]}
           placeholder="¿Qué estás buscando?"
-          placeholderTextColor="#687076"
+          placeholderTextColor={textColor}
         />
       </View>
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.alertsSection}>
-          <Text style={styles.sectionTitle}>Alertas Próximas</Text>
-          <View style={styles.alertCard}>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>Alertas Próximas</Text>
+          <View style={[styles.alertCard, { backgroundColor: headerColor }]}>
             <Ionicons name="alert-circle" size={24} color="#FF5252" style={styles.alertIcon} />
             <View>
-              <Text style={styles.alertTitle}>Leche caduca mañana</Text>
-              <Text style={styles.alertSubtitle}>Despensa, Casa Principal</Text>
+              <Text style={[styles.alertTitle, { color: textColor }]}>Leche caduca mañana</Text>
+              <Text style={[styles.alertSubtitle, { color: textColor }]}>Despensa, Casa Principal</Text>
             </View>
           </View>
-          <View style={styles.alertCard}>
+          <View style={[styles.alertCard, { backgroundColor: headerColor }]}>
             <Ionicons name="construct" size={24} color="#FFA726" style={styles.alertIcon} />
             <View>
-              <Text style={styles.alertTitle}>Mantenimiento aire acondicionado</Text>
-              <Text style={styles.alertSubtitle}>En 5 días</Text>
+              <Text style={[styles.alertTitle, { color: textColor }]}>Mantenimiento aire acondicionado</Text>
+              <Text style={[styles.alertSubtitle, { color: textColor }]}>En 5 días</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.recentSection}>
-          <Text style={styles.sectionTitle}>Añadido Recientemente</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>Añadido Recientemente</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.recentScroll}>
-            <View style={styles.recentCard}><Text style={styles.recentText}>Taladro</Text></View>
-            <View style={styles.recentCard}><Text style={styles.recentText}>Pasaporte</Text></View>
-            <View style={styles.recentCard}><Text style={styles.recentText}>Televisión</Text></View>
+            <View style={[styles.recentCard, { backgroundColor: headerColor }]}><Text style={[styles.recentText, { color: textColor }]}>Taladro</Text></View>
+            <View style={[styles.recentCard, { backgroundColor: headerColor }]}><Text style={[styles.recentText, { color: textColor }]}>Pasaporte</Text></View>
+            <View style={[styles.recentCard, { backgroundColor: headerColor }]}><Text style={[styles.recentText, { color: textColor }]}>Televisión</Text></View>
           </ScrollView>
         </View>
 
         <View style={styles.categoriesSection}>
-          <Text style={styles.sectionTitle}>Mis Categorías</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>Mis Categorías</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoriesScroll}>
-            <View style={styles.categoryCard}><Text style={styles.categoryText}>Electrodomésticos</Text></View>
-            <View style={styles.categoryCard}><Text style={styles.categoryText}>Documentos</Text></View>
-            <View style={styles.categoryCard}><Text style={styles.categoryText}>Herramientas</Text></View>
+            <View style={[styles.categoryCard, { backgroundColor: headerColor }]}><Text style={[styles.categoryText, { color: textColor }]}>Electrodomésticos</Text></View>
+            <View style={[styles.categoryCard, { backgroundColor: headerColor }]}><Text style={[styles.categoryText, { color: textColor }]}>Documentos</Text></View>
+            <View style={[styles.categoryCard, { backgroundColor: headerColor }]}><Text style={[styles.categoryText, { color: textColor }]}>Herramientas</Text></View>
           </ScrollView>
-          <Pressable style={styles.addCategoryButton}>
-            <Text style={styles.addCategoryButtonText}>+ Añadir Categoría</Text>
+          <Pressable style={[styles.addCategoryButton, { backgroundColor: '#64ac8f' }]}>
+            <Text style={[styles.addCategoryButtonText, { color: textColor }]}>+ Añadir Categoría</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -110,49 +116,61 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: '#1E1E1E' },
+  safeArea: { flex: 1 },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#0A7EA4',
   },
-  greeting: { fontSize: 20, fontWeight: '700', color: '#FFF' },
+  greeting: { fontSize: 20, fontWeight: '700' },
   profileButton: { padding: 8 },
   searchContainer: { padding: 16 },
   searchInput: {
-    backgroundColor: '#F5F5F5',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    color: '#11181C',
   },
   contentContainer: { padding: 16 },
   alertsSection: { marginBottom: 24 },
-  sectionTitle: { fontSize: 18, fontWeight: '600', color: '#FFF', marginBottom: 12 },
+  sectionTitle: { fontSize: 18, fontWeight: '600', marginBottom: 12 },
   alertCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#2E2E2E',
     padding: 16,
     borderRadius: 8,
     marginBottom: 12,
   },
   alertIcon: { marginRight: 12 },
-  alertTitle: { fontSize: 16, fontWeight: '600', color: '#FFF' },
-  alertSubtitle: { fontSize: 14, color: '#687076' },
+  alertTitle: { fontSize: 16, fontWeight: '600' },
+  alertSubtitle: { fontSize: 14 },
   recentSection: { marginBottom: 24 },
   recentScroll: { flexDirection: 'row' },
   recentCard: {
-    backgroundColor: '#2E2E2E',
     padding: 16,
     borderRadius: 8,
     marginRight: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  recentText: { fontSize: 14, fontWeight: '600', color: '#FFF' },
+  recentText: { fontSize: 14, fontWeight: '600' },
+  categoriesSection: { marginBottom: 24 },
+  categoriesScroll: { flexDirection: 'row' },
+  categoryCard: {
+    padding: 16,
+    borderRadius: 8,
+    marginRight: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  categoryText: { fontSize: 14, fontWeight: '600' },
+  addCategoryButton: {
+    marginTop: 12,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  addCategoryButtonText: { fontSize: 16, fontWeight: '600' },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -162,25 +180,6 @@ const styles = StyleSheet.create({
   },
   footerButton: { alignItems: 'center' },
   footerText: { fontSize: 12, color: '#FFF', marginTop: 4 },
-  categoriesSection: { marginBottom: 24 },
-  categoriesScroll: { flexDirection: 'row' },
-  categoryCard: {
-    backgroundColor: '#2E2E2E',
-    padding: 16,
-    borderRadius: 8,
-    marginRight: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  categoryText: { fontSize: 14, fontWeight: '600', color: '#FFF' },
-  addCategoryButton: {
-    marginTop: 12,
-    backgroundColor: '#FFA726',
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  addCategoryButtonText: { color: '#FFF', fontSize: 16, fontWeight: '600' },
   burntIcon: {
     opacity: 0.5,
     filter: 'grayscale(100%)',

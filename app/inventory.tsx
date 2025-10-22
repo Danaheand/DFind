@@ -1,6 +1,5 @@
-import FooterNavigation from '@/components/footer-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -30,8 +29,13 @@ interface Item {
   name: string;
 }
 
+interface RootStackParamList {
+  AddObject: undefined;
+  RoomScreen: { propertyId: string };
+}
+
 export default function InventoryScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [properties, setProperties] = useState<Property[]>([]);
   const [newPropertyName, setNewPropertyName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,7 +56,7 @@ export default function InventoryScreen() {
       <Text style={styles.propertyName}>{item.name}</Text>
       <Pressable
         style={styles.arrowButton}
-        onPress={() => navigation.navigate('/room-screen', { propertyId: item.id })}
+        onPress={() => navigation.navigate('RoomScreen', { propertyId: item.id })}
       >
         <Ionicons name="arrow-forward" size={24} color="#0a7ea4" />
       </Pressable>
@@ -111,7 +115,31 @@ export default function InventoryScreen() {
           </View>
         </View>
       </Modal>
-      <FooterNavigation />
+
+      <View style={styles.footer}>
+        <Pressable style={styles.footerButton}>
+          <Ionicons name="home" size={24} color="#FFF" />
+          <Text style={styles.footerText}>Inicio</Text>
+        </Pressable>
+        <Pressable style={styles.footerButton}>
+          <Ionicons name="list" size={24} color="#FFF" />
+          <Text style={styles.footerText}>Inventario</Text>
+        </Pressable>
+        <Pressable
+          style={styles.addButton}
+          onPress={() => navigation.navigate('AddObject')}
+        >
+          <Ionicons name="add" size={32} color="#FFF" />
+        </Pressable>
+        <Pressable style={styles.footerButton}>
+          <Ionicons name="notifications" size={24} color="#FFF" />
+          <Text style={styles.footerText}>Alertas</Text>
+        </Pressable>
+        <Pressable style={styles.footerButton}>
+          <Ionicons name="person" size={24} color="#FFF" />
+          <Text style={styles.footerText}>Perfil</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }
@@ -136,11 +164,15 @@ const styles = StyleSheet.create({
   propertyName: { fontSize: 18, fontWeight: '600', color: '#11181C' },
   arrowButton: { padding: 8 },
   addButton: {
-    margin: 16,
-    padding: 16,
-    backgroundColor: '#FFA726',
-    borderRadius: 8,
+    backgroundColor: '#64ac8f',
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 16,
+    alignSelf: 'center',
   },
   addButtonText: { color: '#FFF', fontSize: 16, fontWeight: '600' },
   modalContainer: {
@@ -188,4 +220,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   saveButtonText: { color: '#FFF', fontSize: 16, fontWeight: '600' },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#0A7EA4',
+  },
+  footerButton: { alignItems: 'center' },
+  footerText: { fontSize: 12, color: '#FFF', marginTop: 4 },
 });
