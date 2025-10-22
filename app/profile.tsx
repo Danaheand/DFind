@@ -18,7 +18,7 @@ const palette = {
   alert: '#d4f1e0',
   footer: '#64ac8f',
   text: '#4b6154',
-  logoutButton: '#e5383563',
+  logoutButton: '#e53835a6',
   logoutText: '#FFFFFF',
 };
 
