@@ -16,13 +16,18 @@ export const QuantitySelector = ({ quantity, setQuantity }: QuantitySelectorProp
         setQuantity(newValue.toString())
     }
 
+    // Ancho dinámico del input basado en la cantidad de dígitos
+    const charWidth = 12 // px aproximados por carácter con fontSize 18
+    const basePadding = 14 // padding interno visual
+    const inputWidth = Math.max(32, Math.max(1, quantity.length) * charWidth + basePadding)
+
     return (
         <View style={styles.quantityRow}>
             <Pressable onPress={() => handleUpdate(-1)} style={styles.quantityButton}>
                 <Ionicons name='remove-outline' size={24} color={palette.primary} />
             </Pressable>
             <TextInput
-                style={styles.quantityInput}
+                style={[styles.quantityInput, { width: inputWidth }]}
                 value={quantity}
                 onChangeText={setQuantity}
                 keyboardType='number-pad'
@@ -37,20 +42,21 @@ export const QuantitySelector = ({ quantity, setQuantity }: QuantitySelectorProp
 
 const styles = StyleSheet.create({
     quantityRow: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         borderWidth: 1,
         borderColor: palette.border,
         borderRadius: 12,
         height: 55,
+        alignSelf: 'center',
+        paddingHorizontal: 8,
     },
     quantityButton: { padding: 10 },
     quantityInput: {
         fontSize: 18,
         fontWeight: 'bold',
         color: palette.text,
-        minWidth: 40,
+        minWidth: 32,
     },
 })
