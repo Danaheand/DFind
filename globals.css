@@ -1,0 +1,52 @@
+/* 1. Importa la base de Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Definición de variables de color para el modo claro (light mode) */
+/* Estas son las variables que usa tu tailwind.config.js */
+@layer base {
+    :root {
+        /* Basados en tu Colors.light */
+        --background: 0 0% 100%; /* #fff */
+        --foreground: 210 22% 15%; /* #11181C */
+        --primary: 195 90% 34%; /* #0a7ea4 */
+        --primary-foreground: 0 0% 100%; /* Texto sobre el primario (Blanco) */
+        --muted: 210 6% 43%; /* #687076 (tu icon) */
+        --muted-foreground: 210 6% 43%; /* #687076 (tu icon) */
+
+        /* Colores mejorados y añadidos */
+        --card: 0 0% 100%; /* #fff (Fondo de tus tarjetas) */
+        --card-foreground: 210 22% 15%; /* #11181C (Texto en tarjetas) */
+        --border: 214 32% 91%; /* #E0E0E0 (Bordes sutiles) */
+        --destructive: 0 72% 51%; /* #DC2626 (Rojo para eliminar) */
+        --destructive-foreground: 0 0% 100%; /* Texto sobre rojo */
+        --success: 142 60% 40%; /* #16A34A (Verde para éxito) */
+        --success-foreground: 0 0% 100%;
+        --warning: 45 93% 47%; /* #EAB308 (Amarillo para advertencia) */
+        --warning-foreground: 210 22% 15%;
+    }
+
+    /* 3. Definición de variables para el modo oscuro (dark mode) */
+    /* Se activa cuando el contenedor raíz tiene `class="dark"` */
+    .dark {
+        /* Basados en tu Colors.dark */
+        --background: 210 6% 18%; /* #151718 */
+        --foreground: 210 6% 93%; /* #ECEDEE */
+        --primary: 195 90% 34%; /* #0a7ea4 (Mantenemos el azul, #fff es mala idea para primario) */
+        --primary-foreground: 0 0% 100%;
+        --muted: 210 6% 63%; /* #9BA1A6 (tu dark.icon) */
+        --muted-foreground: 210 6% 63%; /* #9BA1A6 (tu dark.icon) */
+
+        /* Colores mejorados y añadidos */
+        --card: 210 6% 22%; /* #1F2223 (Un poco más claro que el fondo) */
+        --card-foreground: 210 6% 93%; /* #ECEDEE */
+        --border: 215 14% 31%; /* #374151 (Bordes sutiles oscuros) */
+        --destructive: 0 75% 62%; /* #E5484D (Rojo más brillante) */
+        --destructive-foreground: 0 0% 100%;
+        --success: 147 80% 40%; /* #22C55E (Verde más brillante) */
+        --success-foreground: 0 0% 100%;
+        --warning: 50 95% 55%; /* #FACC15 (Amarillo más brillante) */
+        --warning-foreground: 210 22% 15%;
+    }
+}
